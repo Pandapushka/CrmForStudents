@@ -1,4 +1,5 @@
 ﻿using CrmForStudents.Data;
+using CrmForStudents.Data.Repository;
 using CrmForStudents.Helpers;
 using CrmForStudents.Models.Entities;
 using CrmForStudents.Models.ViewModels;
@@ -9,10 +10,10 @@ namespace CrmForStudents.Controllers
 {
     public class StudentsController : Controller
     {
-        private readonly ApplicationDbContext _dbContext;
-        public StudentsController(ApplicationDbContext dbContext)
+        private readonly IStudentRepository _studentRepository;
+        public StudentsController(IStudentRepository studentRepository)
         {
-            _dbContext = dbContext;
+            _studentRepository = studentRepository;
         }
         [HttpGet]
         public IActionResult Add()
@@ -22,46 +23,31 @@ namespace CrmForStudents.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddStudentViewModels studentViewModel)
         {
-            var student = ViewModelHelper.ToStudent(studentViewModel);
-            await _dbContext.Students.AddAsync(student);
-            await _dbContext.SaveChangesAsync();
-            return View();
+            await _studentRepository.Add(studentViewModel);
+            return RedirectToAction("GetStudents", "Students");
         }
         [HttpGet]
         public async Task<IActionResult> GetStudents()
         {
-            var students = await _dbContext.Students.ToListAsync();
+            var students = await _studentRepository.GetAll();
             return View(students);
         }
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var student = await _dbContext.Students.FindAsync(id);
+            var student = await _studentRepository.GetById(id);
             return View(student);
         }
         [HttpPost]
         public async Task<IActionResult> Edit(Student studentVM)
-        {
-            var student = await _dbContext.Students.FindAsync(studentVM.Id);
-            if (student != null) 
-            {
-                student.Name = studentVM.Name;
-                student.Email = studentVM.Email;
-                student.Phone = studentVM.Phone;
-
-                await _dbContext.SaveChangesAsync();
-            }
+        { 
+            await _studentRepository.Edit(studentVM);
             return RedirectToAction("GetStudents", "Students");
         }
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var student = await _dbContext.Students.FindAsync(id);
-            if (student != null)
-            {
-                _dbContext.Students.Remove(student);
-                await _dbContext.SaveChangesAsync();
-            }
+            await _studentRepository.DeleteById(id);
             return RedirectToAction("GetStudents", "Students");
         }
     }
