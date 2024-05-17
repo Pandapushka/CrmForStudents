@@ -23,8 +23,13 @@ namespace CrmForStudents.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddStudentViewModels studentViewModel)
         {
-            await _studentRepository.Add(studentViewModel);
-            return RedirectToAction("GetStudents", "Students");
+            if (ModelState.IsValid)
+            {
+                await _studentRepository.Add(studentViewModel);
+                return RedirectToAction("GetStudents", "Students");
+            }
+            return View(studentViewModel);
+
         }
         [HttpGet]
         public async Task<IActionResult> GetStudents()
