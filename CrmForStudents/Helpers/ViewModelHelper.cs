@@ -5,6 +5,16 @@ namespace CrmForStudents.Helpers
 {
     public class ViewModelHelper
     {
+        public static Product ToProduct(AddProductViewModel productViewModel)
+        {
+            var newProduct = new Product
+            {
+                Id = productViewModel.Id,
+                Name = productViewModel.Name,
+                Price = productViewModel.Price,
+            };
+            return newProduct;
+        }
         public static Student ToStudent(AddStudentViewModels student)
         {
             var newStudent = new Student

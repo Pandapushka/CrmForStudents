@@ -1,0 +1,28 @@
+﻿@using CrmForStudents.Models.Entities
+@model Product
+
+
+<h1>Редактировать ученика</h1>
+
+@if (Model is null)
+{
+    <p>Студент не найден</p>
+}
+else
+{
+    <form method="post">
+        <div class="mt-3">
+            <label class="form-label">Название</label>
+            <input type="text" class="form-control" asp-for="Name" />
+        </div>
+
+        <div class="mt-3">
+            <label class="form-label">Цена</label>
+            <input type="text" class="form-control" asp-for="Price" />
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-primary">Редактировать</button>
+        </div>
+    </form>
+}
