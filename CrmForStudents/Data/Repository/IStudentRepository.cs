@@ -10,7 +10,5 @@ namespace CrmForStudents.Data.Repository
         Task<Student> GetById(Guid id);
         Task Edit(Student student);
         Task DeleteById(Guid id);
-
-
     }
 }

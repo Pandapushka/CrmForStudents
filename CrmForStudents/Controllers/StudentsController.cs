@@ -45,7 +45,7 @@ namespace CrmForStudents.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> Edit(Student studentVM)
-        { 
+        {
             await _studentRepository.Edit(studentVM);
             return RedirectToAction("GetStudents", "Students");
         }
@@ -55,5 +55,6 @@ namespace CrmForStudents.Controllers
             await _studentRepository.DeleteById(id);
             return RedirectToAction("GetStudents", "Students");
         }
+        
     }
 }
