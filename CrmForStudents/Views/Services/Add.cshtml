@@ -1,0 +1,18 @@
+﻿@using CrmForStudents.Models.DTO
+@model ServicesAndProductDTO
+
+<h1>Добавить занятие</h1>
+<form method="post">
+    <div class="mt-3">
+        @Html.Hidden("StudentId", Model.StudentId)
+    </div>
+    <div class="mt-3">
+        <label class="form-label">Выберите продукт</label>
+        @* <input type="text" class="form-control"  /> *@
+        <select class="form-select" asp-items="Model.Products" asp-for="ProductId"></select>
+    </div>
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">Добавить</button>
+    </div>
+    
+</form>
