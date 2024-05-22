@@ -1,5 +1,6 @@
 ﻿using CrmForStudents.Data;
 using CrmForStudents.Data.Repository;
+using CrmForStudents.Helpers;
 using CrmForStudents.Models.DTO;
 using CrmForStudents.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -11,36 +12,26 @@ namespace CrmForStudents.Controllers
     {
         private readonly IStudentRepository _studentRepository;
         private readonly IProductRepository _productRepository;
-        private readonly ApplicationDbContext _dbContext;
-        public ServicesController(IStudentRepository studentRepository, IProductRepository productRepository, ApplicationDbContext dbContext) 
+        private readonly IServiceRepository _serviceRepository;
+        public ServicesController(IStudentRepository studentRepository, IProductRepository productRepository, IServiceRepository serviceRepository) 
         {
             _studentRepository = studentRepository;
             _productRepository = productRepository;
-            _dbContext = dbContext;
+            _serviceRepository = serviceRepository;
         }
         [HttpGet]
         public async Task<IActionResult> Add(Guid id)
         {
             var products = await _productRepository.GetAll();
-            var SAndPDTO = new ServicesAndProductDTO();
-            SAndPDTO.StudentId = id;
-            SAndPDTO.Products = new List<SelectListItem>();
-            foreach (var prod in products)
-            {
-                SAndPDTO.Products.Add(new SelectListItem { Text = prod.Name, Value = prod.Id.ToString() });
-            }
-            return View(SAndPDTO);
+            var SAndPVM = MaperToSelectListItem.ToSelectListItem(products, id);
+            return View(SAndPVM);
         }
         [HttpPost]
-        public async Task<IActionResult> Add(ServicesAndProductDTO SAndPDTO)
+        public async Task<IActionResult> Add(ServicesAndProductVM SAndPVM)
         {
-            var i = SAndPDTO;
-            var service = new Service();
-            service.Product = await _productRepository.GetById(i.ProductId);
-            service.Student = await _studentRepository.GetById(i.StudentId);
-            service.StartDate = DateTime.Now;
-            _dbContext.Services.Add(service);
-            _dbContext.SaveChanges();
+            var product = await _productRepository.GetById(SAndPVM.ProductId);
+            var student = await _studentRepository.GetById(SAndPVM.StudentId);
+            await _serviceRepository.Add(SAndPVM, product, student);
             return RedirectToAction("GetStudents", "Students");
         }
 

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CrmForStudents.Models.DTO
 {
-    public class ServicesAndProductDTO
+    public class ServicesAndProductVM
     {
         public Guid StudentId { get; set; }
         public List<SelectListItem> Products { get; set; }
