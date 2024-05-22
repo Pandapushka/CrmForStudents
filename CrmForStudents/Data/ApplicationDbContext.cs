@@ -1,5 +1,6 @@
 ﻿using CrmForStudents.Models.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CrmForStudents.Data
 {
@@ -12,5 +13,19 @@ namespace CrmForStudents.Data
         {
             Database.EnsureCreated();
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Service>()
+                .HasOne(u => u.Student)
+                .WithMany(n => n.Services)
+                .HasForeignKey(u => u.StudentId);
+
+            //modelBuilder.Entity<Service>()
+            //    .HasOne<Student>()
+            //    .WithMany(x => x.Services)
+            //    .HasForeignKey(x => x.StudentId);
+        }
+
+        
     }
 }

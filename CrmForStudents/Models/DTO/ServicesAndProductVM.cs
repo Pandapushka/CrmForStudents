@@ -5,9 +5,9 @@ namespace CrmForStudents.Models.DTO
 {
     public class ServicesAndProductVM
     {
-        public Guid StudentId { get; set; }
+        public int StudentId { get; set; }
         public List<SelectListItem> Products { get; set; }
-        public Guid ProductId { get; set; }
+        public int ProductId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime FinishDate { get; set; }
     }

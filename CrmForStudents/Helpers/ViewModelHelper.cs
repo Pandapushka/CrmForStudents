@@ -27,31 +27,20 @@ namespace CrmForStudents.Helpers
             return newStudent;
         }
 
-        public static AddStudentViewModels ToStudentViewModel(Student student)
+        public static AddStudentViewModels ToStudentViewModel(Student student, List<Service> servicesAll)
         {
             var newStudent = new AddStudentViewModels
             {
-                Id= student.Id,
+                Id = student.Id,
                 Name = student.Name,
                 Phone = student.Phone,
                 Email = student.Email,
             };
-            foreach (var item in student.Services)
+            foreach (var item in servicesAll.Where(x => x.StudentId == student.Id))
             {
                 newStudent.Services.Add(item);
             }
             return newStudent;
-        }
-        public static List<AddStudentViewModels> ToListStudentViewModel(List<Student> students)
-        {
-            List<AddStudentViewModels> studentViewModels = new List<AddStudentViewModels>();
-            foreach (var student in students) 
-            {
-                var studentVM = new AddStudentViewModels();
-                studentVM = ToStudentViewModel(student);
-                studentViewModels.Add(studentVM);
-            }
-            return studentViewModels;
         }
     }
 }

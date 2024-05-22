@@ -1,6 +1,7 @@
 ﻿using CrmForStudents.Models.DTO;
 using CrmForStudents.Models.Entities;
 using CrmForStudents.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace CrmForStudents.Data.Repository
 {
@@ -22,5 +23,10 @@ namespace CrmForStudents.Data.Repository
             await _dbContext.Services.AddAsync(service);
             await _dbContext.SaveChangesAsync();
         }
+        public async Task<List<Service>> Get()
+        {
+            return await _dbContext.Services.ToListAsync();
+        }
+
     }
 }

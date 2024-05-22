@@ -34,7 +34,7 @@ namespace CrmForStudents.Controllers
             return View(products);
         }
         [HttpGet]
-        public async Task<IActionResult> Edit(Guid id)
+        public async Task<IActionResult> Edit(int id)
         {
             var student = await _productRepository.GetById(id);
             return View(student);
@@ -46,7 +46,7 @@ namespace CrmForStudents.Controllers
             return RedirectToAction("GetProducts", "Products");
         }
         [HttpGet]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(int id)
         {
             await _productRepository.DeleteById(id);
             return RedirectToAction("GetProducts", "Products");

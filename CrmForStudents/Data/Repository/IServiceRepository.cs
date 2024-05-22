@@ -6,6 +6,7 @@ namespace CrmForStudents.Data.Repository
     public interface IServiceRepository
     {
          Task Add(ServicesAndProductVM SAndPVM, Product product, Student student);
+         Task<List<Service>> Get();
 
     }
 }

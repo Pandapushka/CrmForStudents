@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CrmForStudents.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240520082852_InitBD")]
-    partial class InitBD
+    [Migration("20240522135332_firstM")]
+    partial class firstM
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,9 +27,11 @@ namespace CrmForStudents.Migrations
 
             modelBuilder.Entity("CrmForStudents.Models.Entities.Product", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -45,21 +47,23 @@ namespace CrmForStudents.Migrations
 
             modelBuilder.Entity("CrmForStudents.Models.Entities.Service", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("FinishDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -72,9 +76,11 @@ namespace CrmForStudents.Migrations
 
             modelBuilder.Entity("CrmForStudents.Models.Entities.Student", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -96,7 +102,7 @@ namespace CrmForStudents.Migrations
             modelBuilder.Entity("CrmForStudents.Models.Entities.Service", b =>
                 {
                     b.HasOne("CrmForStudents.Models.Entities.Product", "Product")
-                        .WithMany("Services")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -110,11 +116,6 @@ namespace CrmForStudents.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("CrmForStudents.Models.Entities.Product", b =>
-                {
-                    b.Navigation("Services");
                 });
 
             modelBuilder.Entity("CrmForStudents.Models.Entities.Student", b =>

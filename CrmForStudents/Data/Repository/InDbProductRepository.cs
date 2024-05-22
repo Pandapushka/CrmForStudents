@@ -24,7 +24,7 @@ namespace CrmForStudents.Data.Repository
         {
             return await _dbContext.Products.ToListAsync();
         }
-        public async Task<Product> GetById(Guid id)
+        public async Task<Product> GetById(int id)
         {
             return await _dbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -38,7 +38,7 @@ namespace CrmForStudents.Data.Repository
                 await _dbContext.SaveChangesAsync();
             }
         }
-        public async Task DeleteById(Guid id)
+        public async Task DeleteById(int id)
         {
             var product = await GetById(id);
             if (product != null)

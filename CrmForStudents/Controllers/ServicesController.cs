@@ -20,7 +20,7 @@ namespace CrmForStudents.Controllers
             _serviceRepository = serviceRepository;
         }
         [HttpGet]
-        public async Task<IActionResult> Add(Guid id)
+        public async Task<IActionResult> Add(int id)
         {
             var products = await _productRepository.GetAll();
             var SAndPVM = MaperToSelectListItem.ToSelectListItem(products, id);

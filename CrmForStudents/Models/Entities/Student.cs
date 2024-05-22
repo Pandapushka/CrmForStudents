@@ -2,14 +2,17 @@
 {
     public class Student
     {
-        public Guid Id { get; set; }
+        private ICollection<Service> _services;
+
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public List<Service> Services { get; set; }
-        public Student()
+
+        public virtual ICollection<Service> Services
         {
-            Services = new List<Service>();
+            get { return _services ?? (_services = new List<Service>()); }
+            protected set { _services = value; }
         }
 
     }

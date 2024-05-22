@@ -1,11 +1,18 @@
-﻿namespace CrmForStudents.Models.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CrmForStudents.Models.Entities
 {
     public class Service
     {
-        public Guid Id { get; set; }
-        public Product Product { get; set; }
+        public int Id { get; set; }
+        
         public DateTime StartDate { get; set; }
         public DateTime FinishDate { get; set; }
-        public Student Student { get; set; }
+
+        public int StudentId { get; set; }
+        public virtual Student Student { get; set; }
+
+        public int ProductId { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

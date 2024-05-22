@@ -7,8 +7,8 @@ namespace CrmForStudents.Data.Repository
     {
         Task Add(AddProductViewModel productViewModel);
         Task<List<Product>> GetAll();
-        Task<Product> GetById(Guid id);
+        Task<Product> GetById(int id);
         Task Edit(Product product);
-        Task DeleteById(Guid id);
+        Task DeleteById(int id);
     }
 }

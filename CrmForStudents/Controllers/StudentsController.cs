@@ -11,9 +11,11 @@ namespace CrmForStudents.Controllers
     public class StudentsController : Controller
     {
         private readonly IStudentRepository _studentRepository;
-        public StudentsController(IStudentRepository studentRepository)
+        private readonly IServiceRepository _serviceRepository;
+        public StudentsController(IStudentRepository studentRepository, IServiceRepository serviceRepository)
         {
             _studentRepository = studentRepository;
+            _serviceRepository = serviceRepository;
         }
         [HttpGet]
         public IActionResult Add()
@@ -38,7 +40,7 @@ namespace CrmForStudents.Controllers
             return View(students);
         }
         [HttpGet]
-        public async Task<IActionResult> Edit(Guid id)
+        public async Task<IActionResult> Edit(int id)
         {
             var student = await _studentRepository.GetById(id);
             return View(student);
@@ -50,16 +52,17 @@ namespace CrmForStudents.Controllers
             return RedirectToAction("GetStudents", "Students");
         }
         [HttpGet]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(int id)
         {
             await _studentRepository.DeleteById(id);
             return RedirectToAction("GetStudents", "Students");
         }
         [HttpGet]
-        public async Task<IActionResult> GetInfo(Guid id)
+        public async Task<IActionResult> GetInfo(int id)
         {
             var student = await _studentRepository.GetById(id);
-            var studentVM = ViewModelHelper.ToStudentViewModel(student);
+            var services = await _serviceRepository.Get();
+            var studentVM = ViewModelHelper.ToStudentViewModel(student, services);
             return View(studentVM);
         }
         

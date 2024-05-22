@@ -6,7 +6,7 @@ namespace CrmForStudents.Helpers
 {
     public class MaperToSelectListItem
     {
-        public static ServicesAndProductVM ToSelectListItem(List<Product> products, Guid id)
+        public static ServicesAndProductVM ToSelectListItem(List<Product> products, int id)
         {
             var SAndPVM = new ServicesAndProductVM();
             SAndPVM.StudentId = id;

@@ -5,7 +5,7 @@ namespace CrmForStudents.Models.ViewModels
 {
     public class AddProductViewModel
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         [Required(ErrorMessage = "Значение имя не может быть пустым!")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Значение имя не может быть пустым!")]
