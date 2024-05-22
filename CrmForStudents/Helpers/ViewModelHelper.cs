@@ -36,6 +36,10 @@ namespace CrmForStudents.Helpers
                 Phone = student.Phone,
                 Email = student.Email,
             };
+            foreach (var item in student.Services)
+            {
+                newStudent.Services.Add(item);
+            }
             return newStudent;
         }
         public static List<AddStudentViewModels> ToListStudentViewModel(List<Student> students)

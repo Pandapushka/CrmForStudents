@@ -20,6 +20,7 @@
                 <td>@student.Email</td>
                 <td>@student.Phone</td>
                 <td>
+                    <a class="btn btn-primary" asp-controller="Students" asp-action="GetInfo" asp-route-id="@student.Id">Инфо</a>
                     <a class="btn btn-warning" asp-controller="Students" asp-action="Edit" asp-route-id="@student.Id">Редактировать</a>
                     <a class="btn btn-danger" asp-controller="Students" asp-action="Delete" asp-route-id="@student.Id">Удалить</a>
                 </td>

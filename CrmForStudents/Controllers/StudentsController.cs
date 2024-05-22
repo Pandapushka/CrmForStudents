@@ -55,6 +55,13 @@ namespace CrmForStudents.Controllers
             await _studentRepository.DeleteById(id);
             return RedirectToAction("GetStudents", "Students");
         }
+        [HttpGet]
+        public async Task<IActionResult> GetInfo(Guid id)
+        {
+            var student = await _studentRepository.GetById(id);
+            var studentVM = ViewModelHelper.ToStudentViewModel(student);
+            return View(studentVM);
+        }
         
     }
 }
