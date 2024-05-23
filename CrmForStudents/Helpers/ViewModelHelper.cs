@@ -27,7 +27,7 @@ namespace CrmForStudents.Helpers
             return newStudent;
         }
 
-        public static AddStudentViewModels ToStudentViewModel(Student student, List<Service> servicesAll)
+        public static AddStudentViewModels ToStudentViewModel(Student student, List<Service> servicesAll, List<Product> products)
         {
             var newStudent = new AddStudentViewModels
             {
@@ -38,6 +38,7 @@ namespace CrmForStudents.Helpers
             };
             foreach (var item in servicesAll.Where(x => x.StudentId == student.Id))
             {
+                item.Product = products.Find(x => x.Id == item.ProductId);
                 newStudent.Services.Add(item);
             }
             return newStudent;

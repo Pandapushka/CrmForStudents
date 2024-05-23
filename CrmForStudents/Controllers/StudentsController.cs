@@ -12,10 +12,12 @@ namespace CrmForStudents.Controllers
     {
         private readonly IStudentRepository _studentRepository;
         private readonly IServiceRepository _serviceRepository;
-        public StudentsController(IStudentRepository studentRepository, IServiceRepository serviceRepository)
+        private readonly IProductRepository _productRepository;
+        public StudentsController(IStudentRepository studentRepository, IServiceRepository serviceRepository, IProductRepository productRepository)
         {
             _studentRepository = studentRepository;
             _serviceRepository = serviceRepository;
+            _productRepository = productRepository;
         }
         [HttpGet]
         public IActionResult Add()
@@ -62,7 +64,8 @@ namespace CrmForStudents.Controllers
         {
             var student = await _studentRepository.GetById(id);
             var services = await _serviceRepository.Get();
-            var studentVM = ViewModelHelper.ToStudentViewModel(student, services);
+            var products = await _productRepository.GetAll();
+            var studentVM = ViewModelHelper.ToStudentViewModel(student, services, products);
             return View(studentVM);
         }
         

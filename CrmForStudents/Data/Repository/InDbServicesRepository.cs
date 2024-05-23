@@ -10,7 +10,7 @@ namespace CrmForStudents.Data.Repository
         private readonly ApplicationDbContext _dbContext;
         public InDbServicesRepository(ApplicationDbContext dbContext)
         {
-                _dbContext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task Add(ServicesAndProductVM SAndPVM, Product product, Student student)
