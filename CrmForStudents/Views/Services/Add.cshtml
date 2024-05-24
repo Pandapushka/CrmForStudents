@@ -8,8 +8,15 @@
     </div>
     <div class="mt-3">
         <label class="form-label">Выберите продукт</label>
-        @* <input type="text" class="form-control"  /> *@
         <select class="form-select" asp-items="Model.Products" asp-for="ProductId"></select>
+    </div>
+    <div class="mt-3">
+        <label class="form-label">Дата начала</label>
+        <input type="datetime" class="form-control" asp-for="StartDate" />
+    </div>
+    <div class="mt-3">
+        <label class="form-label">Дата окончания</label>
+        <input type="datetime" class="form-control" asp-for="FinishDate" />
     </div>
     <div class="mt-3">
         <button type="submit" class="btn btn-primary">Добавить</button>
