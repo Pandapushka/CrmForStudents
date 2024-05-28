@@ -37,6 +37,17 @@ namespace CrmForStudents.Helpers
             };
             return newStudent;
         }
+        public static AddStudentViewModels ToStudentVMLite(Student student)
+        {
+            var newStudent = new AddStudentViewModels
+            {
+                Id = student.Id,
+                Name = student.Name,
+                Phone = student.Phone,
+                Email = student.Email,
+            };
+            return newStudent;
+        }
 
         public static AddStudentViewModels ToStudentViewModel(Student student, List<Service> servicesAll, List<Product> products)
         {

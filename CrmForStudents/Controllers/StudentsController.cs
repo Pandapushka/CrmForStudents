@@ -29,7 +29,8 @@ namespace CrmForStudents.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _studentRepository.Add(studentViewModel);
+                var student = ViewModelHelper.ToStudent(studentViewModel);
+                await _studentRepository.Add(student);
                 return RedirectToAction("GetStudents", "Students");
             }
             return View(studentViewModel);
@@ -45,12 +46,14 @@ namespace CrmForStudents.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var student = await _studentRepository.GetById(id);
-            return View(student);
+            var studentVM = ViewModelHelper.ToStudentVMLite(student);
+            return View(studentVM);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(Student studentVM)
+        public async Task<IActionResult> Edit(AddStudentViewModels studentVM)
         {
-            await _studentRepository.Edit(studentVM);
+            var student = ViewModelHelper.ToStudent(studentVM);
+            await _studentRepository.Edit(student);
             return RedirectToAction("GetStudents", "Students");
         }
         [HttpGet]

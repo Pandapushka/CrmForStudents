@@ -12,9 +12,8 @@ namespace CrmForStudents.Data.Repository
         {
             _dbContext = dbContext;
         }
-        public async Task Add(AddStudentViewModels studentViewModel)
+        public async Task Add(Student student)
         {
-            var student = ViewModelHelper.ToStudent(studentViewModel);
             await _dbContext.Students.AddAsync(student);
             await _dbContext.SaveChangesAsync();
         }

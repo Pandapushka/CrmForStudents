@@ -5,7 +5,7 @@ namespace CrmForStudents.Data.Repository
 {
     public interface IStudentRepository
     {
-        Task Add(AddStudentViewModels studentViewModel);
+        Task Add(Student student);
         Task<List<Student>> GetAll();
         Task<Student> GetById(int id);
         Task Edit(Student student);
