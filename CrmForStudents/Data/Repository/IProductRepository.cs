@@ -5,7 +5,7 @@ namespace CrmForStudents.Data.Repository
 {
     public interface IProductRepository
     {
-        Task Add(AddProductViewModel productViewModel);
+        Task Add(Product product);
         Task<List<Product>> GetAll();
         Task<Product> GetById(int id);
         Task Edit(Product product);

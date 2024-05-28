@@ -1,4 +1,5 @@
 ﻿using CrmForStudents.Data.Repository;
+using CrmForStudents.Helpers;
 using CrmForStudents.Models.Entities;
 using CrmForStudents.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,8 @@ namespace CrmForStudents.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _productRepository.Add(productViewModel);
+                var product = ViewModelHelper.ToProduct(productViewModel);
+                await _productRepository.Add(product);
                 return RedirectToAction("GetProducts", "Products");
             }
             return View(productViewModel);
@@ -31,18 +33,20 @@ namespace CrmForStudents.Controllers
         public async Task<IActionResult> GetProducts()
         {
             var products = await _productRepository.GetAll();
-            return View(products);
+            var productsVM = ViewModelHelper.ToListProductVM(products);
+            return View(productsVM);
         }
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var student = await _productRepository.GetById(id);
-            return View(student);
+            var product = await _productRepository.GetById(id);
+            var producttVM = ViewModelHelper.ToProductVM(product);
+            return View(producttVM);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(Product product)
+        public async Task<IActionResult> Edit(AddProductViewModel productVM)
         {
-            await _productRepository.Edit(product);
+            await _productRepository.Edit(ViewModelHelper.ToProduct(productVM));
             return RedirectToAction("GetProducts", "Products");
         }
         [HttpGet]

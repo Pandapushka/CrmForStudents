@@ -15,6 +15,17 @@ namespace CrmForStudents.Helpers
             };
             return newProduct;
         }
+        public static AddProductViewModel ToProductVM(Product product)
+        {
+            var ProductVM = new AddProductViewModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+            };
+            return ProductVM;
+        }
+
         public static Student ToStudent(AddStudentViewModels student)
         {
             var newStudent = new Student
@@ -42,6 +53,21 @@ namespace CrmForStudents.Helpers
                 newStudent.Services.Add(item);
             }
             return newStudent;
+        }
+
+        public static List<AddProductViewModel> ToListProductVM(List<Product> products)
+        {
+            var productsVM = new List<AddProductViewModel>();
+            foreach (var product in products) 
+            {
+                productsVM.Add(new AddProductViewModel
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Price = product.Price,
+                });
+            }
+            return productsVM;
         }
     }
 }

@@ -13,16 +13,16 @@ namespace CrmForStudents.Data.Repository
             _dbContext = dbContext;
         }
 
-        public async Task Add(AddProductViewModel productViewModel)
+        public async Task Add(Product product)
         {
-            var product = ViewModelHelper.ToProduct(productViewModel);
             await _dbContext.Products.AddAsync(product);
             await _dbContext.SaveChangesAsync();
         }
 
         public async Task<List<Product>> GetAll()
         {
-            return await _dbContext.Products.ToListAsync();
+            var list = await _dbContext.Products.ToListAsync();
+            return list;
         }
         public async Task<Product> GetById(int id)
         {
