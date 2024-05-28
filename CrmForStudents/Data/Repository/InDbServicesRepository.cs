@@ -27,6 +27,30 @@ namespace CrmForStudents.Data.Repository
         {
             return await _dbContext.Services.ToListAsync();
         }
+        public async Task<Service> GetById(int id)
+        {
+            return await _dbContext.Services.FirstOrDefaultAsync(x => x.Id == id);
+        }
+        public async Task DeleteById(int id)
+        {
+            var service = await GetById(id);
+            if (service != null)
+            {
+                _dbContext.Services.Remove(service);
+                await _dbContext.SaveChangesAsync();
+            }
+        }
+        public async Task Edit(ServiceViewModel serviceVM)
+        {
+            var service = await GetById(serviceVM.Id);
+            if (service != null)
+            {
+                service.StartDate = serviceVM.StartDate;
+                service.FinishDate = serviceVM.FinishDate;
+                await _dbContext.SaveChangesAsync();
+            }
+        }
+
 
     }
 }

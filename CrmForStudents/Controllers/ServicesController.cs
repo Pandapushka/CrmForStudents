@@ -23,8 +23,8 @@ namespace CrmForStudents.Controllers
         public async Task<IActionResult> Add(int id)
         {
             var products = await _productRepository.GetAll();
-            var SAndPVM = MaperToSelectListItem.ToSelectListItem(products, id);
-            return View(SAndPVM);
+            var ServiceAndProductVM = MaperToSelectListItem.ToSelectListItem(products, id);
+            return View(ServiceAndProductVM);
         }
         [HttpPost]
         public async Task<IActionResult> Add(ServicesAndProductVM SAndPVM)
