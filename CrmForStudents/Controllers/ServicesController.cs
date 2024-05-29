@@ -34,6 +34,12 @@ namespace CrmForStudents.Controllers
             await _serviceRepository.Add(SAndPVM, product, student);
             return RedirectToAction("GetStudents", "Students");
         }
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _serviceRepository.DeleteById(id);
+            return RedirectToAction("GetStudents", "Students");
+        }
 
     }
 }
