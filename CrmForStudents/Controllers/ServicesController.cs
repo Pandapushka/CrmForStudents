@@ -30,10 +30,20 @@ namespace CrmForStudents.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(ServicesAndProductVM SAndPVM)
         {
-            var product = await _productRepository.GetById(SAndPVM.ProductId);
-            var student = await _studentRepository.GetById(SAndPVM.StudentId);
-            await _serviceRepository.Add(SAndPVM, product, student);
-            return RedirectToAction("GetStudents", "Students");
+            if (SAndPVM.FinishDate <= SAndPVM.StartDate)
+            {
+                ModelState.AddModelError("", "Дата окончания не может быть меньше даты начала");
+            }
+            if (ModelState.IsValid)
+            {
+                var product = await _productRepository.GetById(SAndPVM.ProductId);
+                var student = await _studentRepository.GetById(SAndPVM.StudentId);
+                await _serviceRepository.Add(SAndPVM, product, student);
+                return RedirectToAction("GetStudents", "Students");
+            }
+            var products = await _productRepository.GetAll();
+            var ServiceAndProductVM = MaperToSelectListItem.ToSelectListItem(products, SAndPVM.StudentId);
+            return View(ServiceAndProductVM);
         }
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
@@ -51,8 +61,16 @@ namespace CrmForStudents.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(ServiceViewModel serviceVM)
         {
-            await _serviceRepository.Edit(serviceVM);
-            return RedirectToAction("GetStudents", "Students");
+            if (serviceVM.FinishDate <= serviceVM.StartDate)
+            {
+                ModelState.AddModelError("", "Дата окончания не может быть меньше даты начала");
+            }
+            if (ModelState.IsValid)
+            {
+                await _serviceRepository.Edit(serviceVM);
+                return RedirectToAction("GetStudents", "Students");
+            }
+            return View(serviceVM);
         }
 
     }
