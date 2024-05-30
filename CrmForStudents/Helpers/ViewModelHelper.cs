@@ -80,5 +80,29 @@ namespace CrmForStudents.Helpers
             }
             return productsVM;
         }
+
+        public static ServiceViewModel ToServiceViewModel(Service service) 
+        {
+            return new ServiceViewModel
+            {
+                Id = service.Id,
+                StartDate = service.StartDate,
+                FinishDate = service.FinishDate,
+                StudentId = service.StudentId,
+                ProductId = service.ProductId,
+            };
+        }
+
+        public static Service ToService(ServiceViewModel service)
+        {
+            return new Service
+            {
+                Id = service.Id,
+                StartDate = service.StartDate,
+                FinishDate = service.FinishDate,
+                StudentId = service.StudentId,
+                ProductId = service.ProductId,
+            };
+        }
     }
 }

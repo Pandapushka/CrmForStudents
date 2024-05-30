@@ -3,6 +3,7 @@ using CrmForStudents.Data.Repository;
 using CrmForStudents.Helpers;
 using CrmForStudents.Models.DTO;
 using CrmForStudents.Models.Entities;
+using CrmForStudents.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -13,7 +14,7 @@ namespace CrmForStudents.Controllers
         private readonly IStudentRepository _studentRepository;
         private readonly IProductRepository _productRepository;
         private readonly IServiceRepository _serviceRepository;
-        public ServicesController(IStudentRepository studentRepository, IProductRepository productRepository, IServiceRepository serviceRepository) 
+        public ServicesController(IStudentRepository studentRepository, IProductRepository productRepository, IServiceRepository serviceRepository)
         {
             _studentRepository = studentRepository;
             _productRepository = productRepository;
@@ -38,6 +39,19 @@ namespace CrmForStudents.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _serviceRepository.DeleteById(id);
+            return RedirectToAction("GetStudents", "Students");
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var service = await _serviceRepository.GetById(id);
+            var serviceVM = ViewModelHelper.ToServiceViewModel(service);
+            return View(serviceVM);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(ServiceViewModel serviceVM)
+        {
+            await _serviceRepository.Edit(serviceVM);
             return RedirectToAction("GetStudents", "Students");
         }
 

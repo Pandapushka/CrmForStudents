@@ -1,0 +1,24 @@
+﻿@using CrmForStudents.Models.ViewModels
+@model ServiceViewModel
+
+<h1>Добавить занятие</h1>
+<form method="post">
+    <div class="mt-3">
+        @Html.Hidden("StudentId", Model.StudentId)
+    </div>
+    <div class="mt-3">
+        @Html.Hidden("ProductId", Model.ProductId)
+    </div>
+    <div class="mt-3">
+        <label class="form-label">Дата начала</label>
+        <input type="datetime" class="form-control" asp-for="StartDate" />
+    </div>
+    <div class="mt-3">
+        <label class="form-label">Дата окончания</label>
+        <input type="datetime" class="form-control" asp-for="FinishDate" />
+    </div>
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">Изменить</button>
+    </div>
+
+</form>

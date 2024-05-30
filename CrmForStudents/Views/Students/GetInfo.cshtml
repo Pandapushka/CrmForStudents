@@ -15,6 +15,7 @@
                <th>Дата начала</th> 
                <th>Дата окончания</th>
                <th></th>
+               <th></th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +29,11 @@
                     <td>
                         <div class="mt-3">
                             <a class="btn btn-danger" asp-controller="Services" asp-action="Delete" asp-route-id="@i.Id">Удалить услугу</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="mt-3">
+                            <a class="btn btn-primary" asp-controller="Services" asp-action="Edit" asp-route-id="@i.Id">Редактировать услугу</a>
                         </div>
                     </td>
                 </tr>
