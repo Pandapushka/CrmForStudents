@@ -10,5 +10,6 @@ namespace CrmForStudents.Data.Repository
         Task<Student> GetById(int id);
         Task Edit(Student student);
         Task DeleteById(int id);
+        Task<Student> GetByPhone(string phone);
     }
 }

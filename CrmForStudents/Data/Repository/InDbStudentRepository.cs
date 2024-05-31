@@ -2,6 +2,7 @@
 using CrmForStudents.Models.Entities;
 using CrmForStudents.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace CrmForStudents.Data.Repository
 {
@@ -23,11 +24,19 @@ namespace CrmForStudents.Data.Repository
         }
         public async Task<Student> GetById(int id)
         {
-            return await _dbContext.Students.FirstOrDefaultAsync(x => x.Id == id);
+            return await _dbContext.Students
+                .Include(c => c.Services)
+                .ThenInclude(x => x.Product)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+        public async Task<Student> GetByIdLite(int id)
+        {
+            return await _dbContext.Students
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
         public async Task Edit(Student studentVM)
         {
-            var student = await GetById(studentVM.Id);
+            var student = await GetByIdLite(studentVM.Id);
             if (student != null)
             {
                 student.Name = studentVM.Name;
@@ -37,15 +46,20 @@ namespace CrmForStudents.Data.Repository
                 await _dbContext.SaveChangesAsync();
             }
         }
+        
         public async Task DeleteById(int id)
         {
-            var student = await GetById(id);
+            var student = await GetByIdLite(id);
             if (student != null)
             {
                 _dbContext.Students.Remove(student);
                 await _dbContext.SaveChangesAsync();
             }
         }
-        
+        public async Task<Student> GetByPhone(string phone)
+        {
+            return await _dbContext.Students.FirstOrDefaultAsync(x => x.Phone == phone);
+        }
+
     }
 }

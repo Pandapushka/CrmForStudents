@@ -49,7 +49,23 @@ namespace CrmForStudents.Helpers
             return newStudent;
         }
 
-        public static AddStudentViewModels ToStudentViewModel(Student student, List<Service> servicesAll, List<Product> products)
+        //public static AddStudentViewModels ToStudentViewModel(Student student, List<Service> servicesAll, List<Product> products)
+        //{
+        //    var newStudent = new AddStudentViewModels
+        //    {
+        //        Id = student.Id,
+        //        Name = student.Name,
+        //        Phone = student.Phone,
+        //        Email = student.Email,
+        //    };
+        //    foreach (var item in servicesAll.Where(x => x.StudentId == student.Id))
+        //    {
+        //        item.Product = products.Find(x => x.Id == item.ProductId);
+        //        newStudent.Services.Add(item);
+        //    }
+        //    return newStudent;
+        //}
+        public static AddStudentViewModels ToStudentViewModel(Student student)
         {
             var newStudent = new AddStudentViewModels
             {
@@ -57,12 +73,9 @@ namespace CrmForStudents.Helpers
                 Name = student.Name,
                 Phone = student.Phone,
                 Email = student.Email,
+                Services = new List<Service>(student.Services)
+                
             };
-            foreach (var item in servicesAll.Where(x => x.StudentId == student.Id))
-            {
-                item.Product = products.Find(x => x.Id == item.ProductId);
-                newStudent.Services.Add(item);
-            }
             return newStudent;
         }
 

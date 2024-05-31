@@ -27,6 +27,10 @@ namespace CrmForStudents.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddStudentViewModels studentViewModel)
         {
+            if (await _studentRepository.GetByPhone(studentViewModel.Phone) != null)
+            {
+                ModelState.AddModelError("", "Клиент с таким телефоном уже сущствует");
+            }
             if (ModelState.IsValid)
             {
                 var student = ViewModelHelper.ToStudent(studentViewModel);
@@ -66,9 +70,7 @@ namespace CrmForStudents.Controllers
         public async Task<IActionResult> GetInfo(int id)
         {
             var student = await _studentRepository.GetById(id);
-            var services = await _serviceRepository.Get();
-            var products = await _productRepository.GetAll();
-            var studentVM = ViewModelHelper.ToStudentViewModel(student, services, products);
+            var studentVM = ViewModelHelper.ToStudentViewModel(student);
             return View(studentVM);
         }
         
