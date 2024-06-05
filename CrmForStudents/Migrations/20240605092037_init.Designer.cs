@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CrmForStudents.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240522135332_firstM")]
-    partial class firstM
+    [Migration("20240605092037_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

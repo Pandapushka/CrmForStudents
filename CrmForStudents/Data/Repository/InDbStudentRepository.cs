@@ -42,7 +42,6 @@ namespace CrmForStudents.Data.Repository
                 student.Name = studentVM.Name;
                 student.Email = studentVM.Email;
                 student.Phone = studentVM.Phone;
-
                 await _dbContext.SaveChangesAsync();
             }
         }

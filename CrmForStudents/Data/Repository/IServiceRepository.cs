@@ -11,6 +11,7 @@ namespace CrmForStudents.Data.Repository
          Task<Service> GetById(int id);
          Task DeleteById(int id);
          Task Edit(ServiceViewModel serviceVM);
+        Task<List<Service>> GetSortedLisrServices(DateTime dateTime);
 
 
     }
