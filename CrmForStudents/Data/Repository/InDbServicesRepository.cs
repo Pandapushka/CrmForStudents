@@ -52,7 +52,10 @@ namespace CrmForStudents.Data.Repository
         }
         public async Task<List<Service>> GetSortedLisrServices(DateTime dateTime)
         {
-            return await _dbContext.Services.Where(x => x.StartDate == dateTime).Include(x => x.Product).Include(x => x.Student).ToListAsync();
+            return await _dbContext.Services.Where(x => x.StartDate == dateTime)
+                .Include(x => x.Product)
+                .Include(x => x.Student)
+                .ToListAsync();
         }
 
     }

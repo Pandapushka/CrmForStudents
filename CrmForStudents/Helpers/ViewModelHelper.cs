@@ -1,4 +1,5 @@
-﻿using CrmForStudents.Models.Entities;
+﻿using CrmForStudents.Models.DTO;
+using CrmForStudents.Models.Entities;
 using CrmForStudents.Models.ViewModels;
 
 namespace CrmForStudents.Helpers
@@ -98,6 +99,15 @@ namespace CrmForStudents.Helpers
                 FinishDate = service.FinishDate,
                 StudentId = service.StudentId,
                 ProductId = service.ProductId,
+            };
+        }
+
+        public static DataAndServiceVM ToDataAndServiceVM(List<Service> services, DateTime dateTime)
+        {
+            return new DataAndServiceVM
+            {
+                DateTime = dateTime,
+                Service = new List<Service>(services)
             };
         }
     }

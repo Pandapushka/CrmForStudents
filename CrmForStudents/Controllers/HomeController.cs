@@ -1,4 +1,5 @@
 using CrmForStudents.Data.Repository;
+using CrmForStudents.Helpers;
 using CrmForStudents.Models;
 using CrmForStudents.Models.DTO;
 using CrmForStudents.Models.Entities;
@@ -22,12 +23,9 @@ namespace CrmForStudents.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(DateTime  dateTime)
         {
-            var i = dateTime;
-            var q = await _serviceRepository.GetSortedLisrServices(i);
-            var r = new DataAndServiceVM();
-            r.DateTime = dateTime;
-            r.Service = new List<Service>(q);
-            return  View(r);
+            var services = await _serviceRepository.GetSortedLisrServices(dateTime);
+            var servicesVM = ViewModelHelper.ToDataAndServiceVM(services, dateTime);
+            return  View(servicesVM);
         }
 
 

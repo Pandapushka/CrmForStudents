@@ -19,25 +19,29 @@
     }
     else
     {
-        @foreach (var i in Model.Service)
-        {
-            <tr>
-                <td>@i.Student.Name</td>
-                <td>@i.Product.Name</td>
-                <td>@i.Product.Price</td>
-                <td>@i.StartDate</td>
-                <td>@i.FinishDate</td>
-                <td>
-                    <div class="mt-3">
-                        <a class="btn btn-danger" asp-controller="Services" asp-action="Delete" asp-route-id="@i.Id">Удалить услугу</a>
-                    </div>
-                </td>
-                <td>
-                    <div class="mt-3">
-                        <a class="btn btn-primary" asp-controller="Services" asp-action="Edit" asp-route-id="@i.Id">Редактировать услугу</a>
-                    </div>
-                </td>
-            </tr>
-        }
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Имя клиента</th>
+                    <th>Продукт</th>
+                    <th>Цена</th>
+                    <th>Дата начала</th>
+                    <th>Дата окончания</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var i in Model.Service)
+                {
+                    <tr>
+                        <td>@i.Student.Name</td>
+                        <td>@i.Product.Name</td>
+                        <td>@i.Product.Price</td>
+                        <td>@i.StartDate</td>
+                        <td>@i.FinishDate</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     }
 </div>
